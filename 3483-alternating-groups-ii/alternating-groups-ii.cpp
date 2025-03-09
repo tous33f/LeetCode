@@ -2,11 +2,11 @@ class Solution {
 public:
     int numberOfAlternatingGroups(vector<int>& colors, int k) {
         /*-------------------- OPTIMIZED SOL --------------------*/
-        for(int i=0;i<k-1;i++) colors.push_back(colors[i]);
-        int n=colors.size(),cur=1;
+        // for(int i=0;i<k-1;i++) colors.push_back(colors[i]);
+        int n=colors.size(),size=n+k-1,cur=1;
         int cnt=0,win=1;
-        while(cur<n){
-            if(colors[cur]!=colors[cur-1]){
+        while(cur<size){
+            if(colors[cur%n]!=colors[((cur-1)+n)%n]){
                 win++;
             }
             else{
