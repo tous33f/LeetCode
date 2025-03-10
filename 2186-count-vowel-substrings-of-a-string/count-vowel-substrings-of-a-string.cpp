@@ -1,28 +1,24 @@
 class Solution {
 public:
     int countVowelSubstrings(string word) {
-        int ans=0;
         int n=word.size();
-        for(int i=0;i<n-4;i++){
-            for(int j=i+4;j<n;j++){
-                unordered_map<int,bool>ump={ {'a',0},{'e',0},{'i',0},{'o',0},{'u',0} };
-                // string s="";
-                int cnt=0;
-                for(int k=i;k<=j;k++){
-                    // s+=word[k];
-                    if(ump.find(word[k])!=ump.end()){
-                        if( !ump[word[k]]){
-                            cnt++;
-                            ump[word[k]]=1;
-                        }
-                    }
-                    else{
-                        cnt=0;
-                        break;
-                    }
+        unordered_map<char,int>ump={{'a',0},{'e',0},{'i',0},{'o',0},{'u',0}};
+        int cnt=0;
+        int ans=0;
+        for(int i=0,j=0,k=0;i<n;i++){
+            if(ump.find(word[i])!=ump.end()){
+                ump[word[i]]++;
+                if(ump[word[i]]==1) cnt++;
+                for(;cnt==5;k++){
+                    ump[word[k]]--;
+                    if(ump[word[k]]==0) cnt--;
                 }
-                // cout<<s<<"->"<<cnt<<endl;
-                if(cnt==5) ans++;
+                ans+=(k-j);
+            }
+            else{
+                j=k=i+1;
+                cnt=0;
+                ump={{'a',0},{'e',0},{'i',0},{'o',0},{'u',0}};
             }
         }
         return ans;
